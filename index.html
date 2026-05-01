@@ -1,0 +1,1818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>My Daily Care</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230c0c0b'/><text x='50%' y='72%' font-family='Georgia,serif' font-size='20' fill='%23c4420a' text-anchor='middle'>B</text></svg>" />
+  <style>
+    :root {
+      --bg: #f5f0e8;
+      --bg-soft: #faf7f2;
+      --bg-mid: #ede8de;
+      --blue: #1a56db;
+      --blue-dark: #1244b8;
+      --blue-light: #eff3fe;
+      --blue-mid: #dde5fb;
+      --navy: #0d1b3e;
+      --text: #1a1a2e;
+      --muted: #5a6480;
+      --muted-light: #8a93b0;
+      --border: #d8d0c0;
+      --border-mid: #c8c0b0;
+      --green: #15803d;
+      --green-bg: #dcfce7;
+      --green-border: #86efac;
+      --amber: #92400e;
+      --amber-bg: #fef3c7;
+      --red: #c0152a;
+      --red-bg: #fee2e2;
+      --red-dark: #7f1d1d;
+      --purple: #6b21a8;
+      --purple-bg: #f3e8ff;
+      --teal: #0f766e;
+      --teal-bg: #ccfbf1;
+      --radius: 18px;
+      --radius-sm: 10px;
+      --max: 520px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow: 0 4px 16px rgba(0,0,0,0.10), 0 2px 6px rgba(0,0,0,0.05);
+      --shadow-md: 0 8px 28px rgba(0,0,0,0.12), 0 3px 8px rgba(0,0,0,0.06);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 18px;
+      line-height: 1.5;
+      min-height: 100vh;
+      padding-bottom: 100px;
+    }
+
+    /* ── UNIFIED HEADER ── */
+    .top-bar {
+      background: linear-gradient(160deg, #162d5e 0%, #0d1b3e 100%);
+      color: #fff;
+      padding: 16px 20px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    }
+    .top-bar-left { flex: 1; min-width: 0; }
+    .top-bar-left .app-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #6b8ccc;
+      margin-bottom: 3px;
+    }
+    .top-bar-left .welcome-hello {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      color: #fff;
+      line-height: 1.15;
+    }
+    .top-bar-left .welcome-hello span { color: #f6c87a; }
+    .top-bar-left .welcome-sub {
+      font-size: 13px;
+      color: #94a3b8;
+      margin-top: 3px;
+      line-height: 1.4;
+    }
+    .top-bar-right { flex-shrink: 0; text-align: right; }
+    .time-badge {
+      font-family: 'DM Serif Display', serif;
+      font-size: 24px;
+      color: #f6c87a;
+      line-height: 1;
+    }
+    .time-ampm {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: #6b8ccc;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 2px;
+      display: block;
+      text-align: right;
+    }
+
+    /* ── SOS BUTTON ── */
+    .sos-section {
+      padding: 20px 16px 8px;
+    }
+    .sos-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #c0152a, #e53e3e);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      padding: 22px 20px;
+      font-size: 22px;
+      font-weight: 700;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      box-shadow: 0 6px 20px rgba(192,21,42,0.35);
+      transition: transform 0.1s, box-shadow 0.1s;
+      letter-spacing: 0.5px;
+    }
+    .sos-btn:active { transform: scale(0.97); box-shadow: 0 3px 10px rgba(192,21,42,0.3); }
+    .sos-icon { font-size: 28px; }
+    .sos-sub { font-size: 13px; font-weight: 400; opacity: 0.85; display: block; margin-top: 2px; }
+
+    /* ── NAV TABS ── */
+    .nav-tabs {
+      display: flex;
+      gap: 6px;
+      padding: 14px 16px 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .nav-tabs::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      flex-shrink: 0;
+      background: #fff;
+      border: 2px solid var(--border);
+      border-radius: 50px;
+      padding: 10px 18px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .tab-btn.active {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: #fff;
+    }
+    .tab-btn:hover:not(.active) { border-color: var(--blue); color: var(--blue); }
+
+    /* ── MAIN CONTENT ── */
+    .main { padding: 16px; max-width: var(--max); margin: 0 auto; }
+    .section { display: none; }
+    .section.active { display: block; }
+
+    /* ── CARDS ── */
+    .card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+    }
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .card-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px;
+      color: var(--navy);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-title-icon { font-size: 22px; }
+
+    /* ── MEDICATION ── */
+    .med-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .med-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .med-check {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 3px solid var(--border-mid);
+      background: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    .med-check.taken {
+      background: var(--green-bg);
+      border-color: var(--green);
+      color: var(--green);
+    }
+    .med-info { flex: 1; }
+    .med-name { font-size: 18px; font-weight: 600; color: var(--text); }
+    .med-detail { font-size: 14px; color: var(--muted); margin-top: 2px; }
+    .med-time {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--muted);
+      background: var(--bg-mid);
+      padding: 4px 10px;
+      border-radius: 20px;
+      flex-shrink: 0;
+    }
+    .med-time.due { color: var(--amber); background: var(--amber-bg); }
+
+    .add-btn {
+      width: 100%;
+      background: var(--blue-light);
+      border: 2px dashed var(--blue-mid);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--blue);
+      cursor: pointer;
+      margin-top: 12px;
+      font-family: 'DM Sans', sans-serif;
+      transition: all 0.2s;
+    }
+    .add-btn:hover { background: var(--blue-mid); }
+
+    /* ── VITALS ── */
+    .vitals-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .vital-card {
+      background: var(--bg-soft);
+      border-radius: 14px;
+      padding: 16px;
+      border: 1px solid var(--border);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .vital-card:hover { border-color: var(--blue); box-shadow: var(--shadow-sm); }
+    .vital-card.full { grid-column: 1 / -1; }
+    .vital-icon { font-size: 30px; margin-bottom: 6px; }
+    .vital-label { font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    .vital-value { font-family: 'DM Serif Display', serif; font-size: 28px; color: var(--navy); margin-top: 4px; }
+    .vital-unit { font-size: 12px; color: var(--muted); }
+    .vital-time { font-size: 12px; color: var(--muted-light); margin-top: 4px; }
+    .vital-trend { font-size: 12px; margin-top: 4px; }
+    .vital-trend.good { color: var(--green); }
+    .vital-trend.warn { color: var(--amber); }
+
+    /* ── LOG FORM ── */
+    .log-form { display: none; margin-top: 14px; }
+    .log-form.open { display: block; }
+    .form-row { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; flex-wrap: wrap; }
+    .form-label { font-size: 15px; font-weight: 600; color: var(--text); min-width: 90px; }
+    .form-input {
+      flex: 1;
+      min-width: 120px;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      font-size: 17px;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      background: #fff;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-input:focus { border-color: var(--blue); }
+    .save-btn {
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 13px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      width: 100%;
+      margin-top: 4px;
+      transition: background 0.2s;
+    }
+    .save-btn:hover { background: var(--blue-dark); }
+
+    /* ── APPOINTMENTS ── */
+    .appt-item {
+      display: flex;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: flex-start;
+    }
+    .appt-item:last-child { border-bottom: none; }
+    .appt-date-box {
+      background: var(--navy);
+      color: #fff;
+      border-radius: 12px;
+      padding: 10px 12px;
+      text-align: center;
+      min-width: 56px;
+      flex-shrink: 0;
+    }
+    .appt-month { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.8; }
+    .appt-day { font-family: 'DM Serif Display', serif; font-size: 24px; line-height: 1; }
+    .appt-info { flex: 1; }
+    .appt-title { font-size: 17px; font-weight: 600; color: var(--text); }
+    .appt-doctor { font-size: 14px; color: var(--muted); margin-top: 2px; }
+    .appt-time { font-size: 14px; color: var(--blue); font-weight: 600; margin-top: 4px; }
+    .appt-upcoming {
+      font-size: 12px;
+      background: var(--amber-bg);
+      color: var(--amber);
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-block;
+      margin-top: 4px;
+    }
+    .appt-upcoming.soon {
+      background: var(--red-bg);
+      color: var(--red);
+    }
+
+    /* ── HYDRATION ── */
+    .hydration-display {
+      text-align: center;
+      padding: 10px 0;
+    }
+    .hydration-glasses {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 16px 0;
+    }
+    .glass-btn {
+      font-size: 34px;
+      cursor: pointer;
+      transition: transform 0.15s;
+      opacity: 0.25;
+      background: none;
+      border: none;
+      padding: 4px;
+      border-radius: 8px;
+    }
+    .glass-btn.filled { opacity: 1; }
+    .glass-btn:hover { transform: scale(1.15); }
+    .hydration-label { font-size: 22px; font-weight: 700; color: var(--navy); margin-top: 4px; }
+    .hydration-sub { font-size: 14px; color: var(--muted); }
+
+    /* ── CHECKIN ── */
+    .checkin-question { font-size: 20px; font-weight: 600; color: var(--navy); margin-bottom: 16px; text-align: center; }
+    .mood-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .mood-btn {
+      flex-direction: column;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--bg-soft);
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 12px;
+      cursor: pointer;
+      font-size: 34px;
+      transition: all 0.2s;
+      font-family: 'DM Sans', sans-serif;
+      min-width: 70px;
+    }
+    .mood-btn span { font-size: 12px; font-weight: 600; color: var(--muted); }
+    .mood-btn.selected { border-color: var(--blue); background: var(--blue-light); }
+    .mood-btn:hover { border-color: var(--blue-mid); }
+    .symptoms-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+    .symptom-chip {
+      background: var(--bg-soft);
+      border: 2px solid var(--border);
+      border-radius: 50px;
+      padding: 8px 16px;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      color: var(--text);
+      transition: all 0.2s;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .symptom-chip.selected { background: var(--red-bg); border-color: #fca5a5; color: var(--red); }
+    .checkin-notes {
+      width: 100%;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      font-size: 16px;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      resize: vertical;
+      min-height: 80px;
+      margin-top: 14px;
+      outline: none;
+    }
+    .checkin-notes:focus { border-color: var(--blue); }
+
+    /* ── CONTACTS ── */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .contact-card {
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .contact-card:hover { border-color: var(--blue); background: var(--blue-light); }
+    .contact-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin: 0 auto 8px;
+      font-weight: 700;
+      font-family: 'DM Serif Display', serif;
+    }
+    .contact-name { font-size: 16px; font-weight: 600; color: var(--text); }
+    .contact-role { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .contact-phone { font-size: 13px; color: var(--blue); font-weight: 600; margin-top: 6px; }
+    .contact-call-btn {
+      margin-top: 8px;
+      background: var(--green-bg);
+      border: 1px solid var(--green-border);
+      border-radius: 8px;
+      padding: 7px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--green);
+      cursor: pointer;
+      width: 100%;
+      font-family: 'DM Sans', sans-serif;
+      transition: all 0.2s;
+    }
+    .contact-call-btn:hover { background: #bbf7d0; }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 1000;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: #fff;
+      border-radius: 24px 24px 0 0;
+      padding: 24px 20px 36px;
+      width: 100%;
+      max-width: 520px;
+      animation: slideUp 0.25s ease;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+    .modal-title { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--navy); margin-bottom: 20px; }
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: var(--bg-mid);
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal { position: relative; }
+
+    /* ── BADGES ── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .badge-green { background: var(--green-bg); color: var(--green); }
+    .badge-amber { background: var(--amber-bg); color: var(--amber); }
+    .badge-red { background: var(--red-bg); color: var(--red); }
+    .badge-blue { background: var(--blue-light); color: var(--blue-dark); }
+
+    /* ── PROGRESS BAR ── */
+    .progress-bar-wrap { background: var(--bg-mid); border-radius: 50px; height: 10px; margin-top: 10px; }
+    .progress-bar-fill { height: 100%; border-radius: 50px; background: linear-gradient(90deg, var(--blue), #3b82f6); transition: width 0.4s ease; }
+    .progress-label { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); margin-top: 6px; }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed;
+      bottom: 110px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--navy);
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 600;
+      opacity: 0;
+      transition: all 0.3s;
+      z-index: 2000;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ── SOS CONFIRM ── */
+    .sos-confirm {
+      text-align: center;
+      padding: 10px 0;
+    }
+    .sos-confirm h2 { font-family: 'DM Serif Display', serif; font-size: 26px; color: var(--red); margin-bottom: 10px; }
+    .sos-confirm p { font-size: 16px; color: var(--muted); margin-bottom: 24px; }
+    .sos-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .sos-call-btn {
+      background: var(--red);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 18px;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: background 0.2s;
+    }
+    .sos-call-btn:hover { background: var(--red-dark); }
+    .sos-cancel-btn {
+      background: var(--bg-mid);
+      color: var(--muted);
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 18px;
+      font-size: 17px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    /* History log small */
+    .history-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+    .history-item:last-child { border-bottom: none; }
+    .history-val { font-weight: 600; color: var(--navy); }
+    .history-time { color: var(--muted-light); font-size: 13px; }
+
+    .section-header {
+      font-family: 'DM Serif Display', serif;
+      font-size: 16px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 6px 0 12px;
+      padding-left: 4px;
+    }
+
+    /* ── WEATHER ── */
+    .weather-card {
+      background: linear-gradient(135deg, #1a3a6b 0%, #0d2654 100%);
+      border-radius: var(--radius);
+      padding: 18px 20px 16px;
+      margin-bottom: 14px;
+      color: #fff;
+    }
+    .weather-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .weather-main { display: flex; align-items: center; gap: 14px; }
+    .weather-icon { font-size: 48px; line-height: 1; }
+    .weather-temp {
+      font-family: 'DM Serif Display', serif;
+      font-size: 46px;
+      color: #f6c87a;
+      line-height: 1;
+    }
+    .weather-temp sup { font-size: 22px; vertical-align: super; }
+    .weather-desc { font-size: 15px; color: #94a3b8; margin-top: 4px; }
+    .weather-location { font-size: 13px; color: #6b8ccc; font-weight: 600; letter-spacing: 0.5px; }
+    .weather-detail { font-size: 14px; color: #c8d6f0; text-align: right; line-height: 1.6; }
+    .forecast-scroll {
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 14px;
+      margin-top: 4px;
+    }
+    .forecast-scroll::-webkit-scrollbar { display: none; }
+    .forecast-hour {
+      flex: 0 0 auto;
+      text-align: center;
+      padding: 0 12px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      min-width: 64px;
+    }
+    .forecast-hour:last-child { border-right: none; }
+    .forecast-time { font-size: 12px; color: #6b8ccc; font-weight: 600; margin-bottom: 6px; }
+    .forecast-icon { font-size: 20px; margin-bottom: 4px; }
+    .forecast-temp { font-size: 15px; font-weight: 700; color: #f6c87a; }
+    .forecast-rain { font-size: 11px; color: #60a5fa; margin-top: 3px; }
+
+    /* ── BIRTHDAY ── */
+    .bday-item {
+      display: flex;
+      gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: center;
+    }
+    .bday-item:last-child { border-bottom: none; }
+    .bday-date-box {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #fff;
+      border-radius: 12px;
+      padding: 10px 12px;
+      text-align: center;
+      min-width: 56px;
+      flex-shrink: 0;
+    }
+    .bday-month { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.9; }
+    .bday-day { font-family: 'DM Serif Display', serif; font-size: 24px; line-height: 1; }
+    .bday-info { flex: 1; }
+    .bday-name { font-size: 17px; font-weight: 600; color: var(--text); }
+    .bday-countdown { font-size: 14px; margin-top: 3px; }
+    .bday-countdown.today { color: #d97706; font-weight: 700; }
+    .bday-countdown.soon  { color: var(--blue); }
+    .bday-countdown.later { color: var(--muted); }
+
+    /* ── NEWS ── */
+    .news-filter-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .news-filter-btn {
+      background: var(--bg-mid);
+      border: 2px solid var(--border);
+      border-radius: 50px;
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: all 0.2s;
+    }
+    .news-filter-btn.active {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: #fff;
+    }
+    .news-item {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .news-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .news-item:hover { background: var(--bg-soft); border-radius: 8px; padding-left: 8px; }
+    .news-category-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 50px;
+      margin-bottom: 7px;
+    }
+    .tag-national  { background: #dde5fb; color: #1a56db; }
+    .tag-health    { background: #dcfce7; color: #15803d; }
+    .tag-local     { background: #fef3c7; color: #92400e; }
+    .tag-weather   { background: #ccfbf1; color: #0f766e; }
+    .news-headline {
+      font-family: 'DM Serif Display', serif;
+      font-size: 19px;
+      color: var(--navy);
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+    .news-summary {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+    .news-meta {
+      font-size: 12px;
+      color: var(--muted-light);
+      margin-top: 7px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .news-source { font-weight: 600; color: var(--muted); }
+    .news-updated {
+      font-size: 13px;
+      color: var(--muted-light);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .news-read-more {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--blue);
+      text-decoration: none;
+    }
+    .news-read-more:hover { text-decoration: underline; }
+
+    @media (min-width: 480px) {
+      body { font-size: 19px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- UNIFIED HEADER -->
+<div class="top-bar">
+  <div class="top-bar-left">
+    <div class="app-label">My Daily Care</div>
+    <div class="welcome-hello">Hello, <span id="welcomeName">Friend</span>! 👋</div>
+    <div class="welcome-sub">
+      <span id="welcomeDate"></span><span id="greeting"></span>
+    </div>
+  </div>
+  <div class="top-bar-right">
+    <div>
+      <div class="time-badge" id="clock">—</div>
+      <span class="time-ampm" id="welcomeAmpm"></span>
+    </div>
+  </div>
+</div>
+
+<!-- SOS -->
+<div class="sos-section">
+  <button class="sos-btn" onclick="openSOS()">
+    <span class="sos-icon">🆘</span>
+    <div>
+      EMERGENCY HELP
+      <span class="sos-sub">Tap to call for help immediately</span>
+    </div>
+  </button>
+</div>
+
+<!-- TABS -->
+<div class="nav-tabs" id="navTabs">
+  <button class="tab-btn active" onclick="switchTab('meds', this)">💊 Meds</button>
+  <button class="tab-btn" onclick="switchTab('vitals', this)">❤️ Vitals</button>
+  <button class="tab-btn" onclick="switchTab('appointments', this)">📅 Appts</button>
+  <button class="tab-btn" onclick="switchTab('hydration', this)">💧 Water</button>
+  <button class="tab-btn" onclick="switchTab('checkin', this)">😊 Check-In</button>
+  <button class="tab-btn" onclick="switchTab('contacts', this)">📞 Contacts</button>
+  <button class="tab-btn" onclick="switchTab('news', this)">📰 News</button>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- MEDS SECTION -->
+  <div class="section active" id="sec-meds">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title"><span class="card-title-icon">💊</span> Today's Medications</div>
+        <span class="badge badge-blue" id="medProgress">0 / 0 taken</span>
+      </div>
+      <div id="medList"></div>
+      <div class="progress-bar-wrap" style="margin-top:14px;">
+        <div class="progress-bar-fill" id="medBar" style="width:0%"></div>
+      </div>
+      <div class="progress-label"><span>Progress</span><span id="medPct">0%</span></div>
+      <button class="add-btn" onclick="openAddMed()">+ Add a Medication</button>
+    </div>
+    <div class="card">
+      <div class="card-title" style="margin-bottom:12px;"><span class="card-title-icon">📋</span> Refills Needed</div>
+      <div id="refillList"></div>
+    </div>
+  </div>
+
+  <!-- VITALS SECTION -->
+  <div class="section" id="sec-vitals">
+    <div class="card">
+      <div class="card-title" style="margin-bottom:14px;"><span class="card-title-icon">❤️</span> Today's Readings</div>
+      <div class="vitals-grid" id="vitalsGrid"></div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title"><span class="card-title-icon">📈</span> Log a Reading</div>
+      </div>
+      <div class="form-row">
+        <label class="form-label">Type</label>
+        <select class="form-input" id="vitalType" style="flex:1">
+          <option value="bp">Blood Pressure</option>
+          <option value="hr">Heart Rate</option>
+          <option value="glucose">Blood Sugar</option>
+          <option value="weight">Weight</option>
+          <option value="temp">Temperature</option>
+          <option value="o2">Oxygen (SpO₂)</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label class="form-label">Value</label>
+        <input class="form-input" id="vitalValue" type="text" placeholder="e.g. 120/80" />
+      </div>
+      <button class="save-btn" onclick="logVital()">Save Reading</button>
+    </div>
+    <div class="card">
+      <div class="card-title" style="margin-bottom:12px;"><span class="card-title-icon">🕐</span> Recent History</div>
+      <div id="vitalHistory"></div>
+    </div>
+  </div>
+
+  <!-- APPOINTMENTS SECTION -->
+  <div class="section" id="sec-appointments">
+
+    <!-- WEATHER CARD -->
+    <div class="weather-card">
+      <div class="weather-top">
+        <div class="weather-main">
+          <div class="weather-icon" id="wxIcon">☀️</div>
+          <div>
+            <div class="weather-temp"><span id="wxTemp">59</span><sup>°F</sup></div>
+            <div class="weather-desc" id="wxDesc">Mostly sunny</div>
+            <div class="weather-location">📍 San Mateo, CA</div>
+          </div>
+        </div>
+        <div class="weather-detail">
+          <div id="wxHigh">High 63°F</div>
+          <div id="wxRain">💧 5% rain</div>
+          <div style="margin-top:6px;font-size:12px;color:#6b8ccc;" id="wxUpdated">Updated just now</div>
+        </div>
+      </div>
+      <div class="forecast-scroll" id="wxForecast"></div>
+    </div>
+
+    <!-- UPCOMING VISITS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title"><span class="card-title-icon">📅</span> Upcoming Visits</div>
+        <button class="add-btn" style="width:auto;padding:8px 16px;margin-top:0;" onclick="openAddAppt()">+ Add</button>
+      </div>
+      <div id="apptList"></div>
+    </div>
+
+    <!-- BIRTHDAYS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title"><span class="card-title-icon">🎂</span> Birthdays</div>
+        <button class="add-btn" style="width:auto;padding:8px 16px;margin-top:0;" onclick="openAddBday()">+ Add</button>
+      </div>
+      <div id="bdayList"></div>
+    </div>
+
+    <!-- DOCTOR NOTES -->
+    <div class="card">
+      <div class="card-title" style="margin-bottom:14px;"><span class="card-title-icon">💬</span> Questions for Doctor</div>
+      <textarea class="checkin-notes" id="doctorNotes" placeholder="Write your questions here before your next visit…"></textarea>
+      <button class="save-btn" style="margin-top:10px;" onclick="saveDoctorNotes()">Save Notes</button>
+    </div>
+  </div>
+
+  <!-- HYDRATION SECTION -->
+  <div class="section" id="sec-hydration">
+    <div class="card">
+      <div class="card-title" style="margin-bottom:4px; justify-content:center;"><span class="card-title-icon">💧</span> Water Intake Today</div>
+      <div class="hydration-display">
+        <div class="hydration-glasses" id="glassRow"></div>
+        <div class="hydration-label" id="hydrationLabel">0 of 8 glasses</div>
+        <div class="hydration-sub">Tap each glass as you drink it</div>
+      </div>
+      <div class="progress-bar-wrap" style="margin-top:10px;">
+        <div class="progress-bar-fill" id="hydBar" style="width:0%; background: linear-gradient(90deg,#0891b2,#06b6d4);"></div>
+      </div>
+      <div class="progress-label"><span>Goal: 8 glasses (64 oz)</span><span id="hydPct">0%</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="margin-bottom:12px;">💡 Hydration Tips</div>
+      <div style="font-size:15px; color:var(--muted); line-height:1.7;">
+        <p>🌅 <strong>Morning:</strong> Drink a glass as soon as you wake up</p>
+        <p style="margin-top:8px;">🍽️ <strong>With meals:</strong> Have a glass before and after eating</p>
+        <p style="margin-top:8px;">💊 <strong>With meds:</strong> Take medications with a full glass of water</p>
+        <p style="margin-top:8px;">🛌 <strong>Before bed:</strong> Have a small glass before sleeping</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHECK-IN SECTION -->
+  <div class="section" id="sec-checkin">
+    <div class="card">
+      <div class="card-title" style="margin-bottom:16px; justify-content:center;"><span class="card-title-icon">😊</span> How Are You Today?</div>
+      <div class="checkin-question">How are you feeling right now?</div>
+      <div class="mood-row" id="moodRow">
+        <button class="mood-btn" onclick="selectMood(this,'great')">😄<span>Great</span></button>
+        <button class="mood-btn" onclick="selectMood(this,'okay')">🙂<span>Okay</span></button>
+        <button class="mood-btn" onclick="selectMood(this,'tired')">😔<span>Tired</span></button>
+        <button class="mood-btn" onclick="selectMood(this,'poor')">😟<span>Poor</span></button>
+      </div>
+      <div class="checkin-question" style="font-size:17px; margin-bottom:10px;">Any symptoms today?</div>
+      <div class="symptoms-row" id="symptomsRow">
+        <button class="symptom-chip" onclick="toggleSymptom(this)">😮‍💨 Short of breath</button>
+        <button class="symptom-chip" onclick="toggleSymptom(this)">🤕 Headache</button>
+        <button class="symptom-chip" onclick="toggleSymptom(this)">🫀 Chest discomfort</button>
+        <button class="symptom-chip" onclick="toggleSymptom(this)">😵 Dizzy</button>
+        <button class="symptom-chip" onclick="toggleSymptom(this)">🤢 Nauseous</button>
+        <button class="symptom-chip" onclick="toggleSymptom(this)">🦵 Leg pain</button>
+        <button class="symptom-chip" onclick="toggleSymptom(this)">😴 Very fatigued</button>
+        <button class="symptom-chip" onclick="toggleSymptom(this)">🫁 Coughing</button>
+      </div>
+      <textarea class="checkin-notes" id="checkinNotes" placeholder="Anything else you'd like to note today…"></textarea>
+      <button class="save-btn" style="margin-top:14px;" onclick="saveCheckin()">✓ Submit Today's Check-In</button>
+    </div>
+    <div class="card" id="checkinHistory">
+      <div class="card-title" style="margin-bottom:12px;"><span class="card-title-icon">📖</span> Recent Check-Ins</div>
+      <div id="checkinList"></div>
+    </div>
+  </div>
+
+  <!-- CONTACTS SECTION -->
+  <div class="section" id="sec-contacts">
+    <div class="card">
+      <div class="card-title" style="margin-bottom:14px;"><span class="card-title-icon">📞</span> Quick Contacts</div>
+      <div class="contact-grid" id="contactGrid"></div>
+      <button class="add-btn" style="margin-top:12px;" onclick="openAddContact()">+ Add Contact</button>
+    </div>
+    <div class="card">
+      <div class="card-title" style="margin-bottom:10px;">🏥 Important Numbers</div>
+      <div style="font-size:15px; line-height:2;">
+        <div style="display:flex;justify-content:space-between;"><span>🚨 Emergency</span><a href="tel:911" style="color:var(--red);font-weight:700;text-decoration:none;">911</a></div>
+        <div style="display:flex;justify-content:space-between;"><span>🧠 Poison Control</span><a href="tel:18002221222" style="color:var(--blue);font-weight:700;text-decoration:none;">1-800-222-1222</a></div>
+        <div style="display:flex;justify-content:space-between;"><span>🌙 Crisis Hotline</span><a href="tel:988" style="color:var(--blue);font-weight:700;text-decoration:none;">988</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEWS SECTION -->
+  <div class="section" id="sec-news">
+
+    <div class="card">
+      <div class="card-header" style="margin-bottom:10px;">
+        <div class="card-title"><span class="card-title-icon">📰</span> Today's News</div>
+      </div>
+      <div class="news-updated">🕐 Updated this morning &nbsp;·&nbsp; <span style="color:var(--blue);font-weight:600;">April 30, 2026</span></div>
+      <div class="news-filter-row">
+        <button class="news-filter-btn active" onclick="filterNews('all', this)">All</button>
+        <button class="news-filter-btn" onclick="filterNews('national', this)">🇺🇸 National</button>
+        <button class="news-filter-btn" onclick="filterNews('health', this)">❤️ Health</button>
+        <button class="news-filter-btn" onclick="filterNews('local', this)">📍 Local</button>
+      </div>
+      <div id="newsList"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title" style="margin-bottom:12px;"><span class="card-title-icon">💡</span> Tip of the Day</div>
+      <div id="tipOfDay" style="font-size:16px;color:var(--text);line-height:1.6;"></div>
+    </div>
+
+  </div>
+
+</div><!-- /main -->
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- SOS MODAL -->
+<div class="modal-overlay" id="sosModal">
+  <div class="modal">
+    <div class="sos-confirm">
+      <h2>🆘 Emergency Help</h2>
+      <p>Who would you like to call right now?</p>
+      <div id="sosContactList" style="margin-bottom:20px;"></div>
+      <div class="sos-actions">
+        <button class="sos-call-btn" onclick="callEmergency()">📞 Call 911</button>
+        <button class="sos-cancel-btn" onclick="closeModal('sosModal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADD MED MODAL -->
+<div class="modal-overlay" id="addMedModal">
+  <div class="modal">
+    <div class="modal-title">💊 Add Medication</div>
+    <button class="modal-close" onclick="closeModal('addMedModal')">✕</button>
+    <div class="form-row">
+      <label class="form-label">Name</label>
+      <input class="form-input" id="newMedName" placeholder="e.g. Metformin" />
+    </div>
+    <div class="form-row">
+      <label class="form-label">Dose</label>
+      <input class="form-input" id="newMedDose" placeholder="e.g. 500mg" />
+    </div>
+    <div class="form-row">
+      <label class="form-label">Time</label>
+      <input class="form-input" id="newMedTime" type="time" />
+    </div>
+    <div class="form-row">
+      <label class="form-label">Notes</label>
+      <input class="form-input" id="newMedNote" placeholder="e.g. Take with food" />
+    </div>
+    <button class="save-btn" onclick="addMed()">Add Medication</button>
+  </div>
+</div>
+
+<!-- ADD APPT MODAL -->
+<div class="modal-overlay" id="addApptModal">
+  <div class="modal">
+    <div class="modal-title">📅 Add Appointment</div>
+    <button class="modal-close" onclick="closeModal('addApptModal')">✕</button>
+    <div class="form-row">
+      <label class="form-label">Doctor</label>
+      <input class="form-input" id="newApptDoc" placeholder="e.g. Dr. Smith" />
+    </div>
+    <div class="form-row">
+      <label class="form-label">Type</label>
+      <input class="form-input" id="newApptTitle" placeholder="e.g. Annual checkup" />
+    </div>
+    <div class="form-row">
+      <label class="form-label">Date</label>
+      <input class="form-input" id="newApptDate" type="date" />
+    </div>
+    <div class="form-row">
+      <label class="form-label">Time</label>
+      <input class="form-input" id="newApptTime" type="time" />
+    </div>
+    <div class="form-row">
+      <label class="form-label">Location</label>
+      <input class="form-input" id="newApptLoc" placeholder="e.g. 100 Main St" />
+    </div>
+    <button class="save-btn" onclick="addAppt()">Add Appointment</button>
+  </div>
+</div>
+
+<!-- ADD CONTACT MODAL -->
+<div class="modal-overlay" id="addContactModal">
+  <div class="modal">
+    <div class="modal-title">📞 Add Contact</div>
+    <button class="modal-close" onclick="closeModal('addContactModal')">✕</button>
+    <div class="form-row">
+      <label class="form-label">Name</label>
+      <input class="form-input" id="newContactName" placeholder="e.g. Mary (Daughter)" />
+    </div>
+    <div class="form-row">
+      <label class="form-label">Role</label>
+      <input class="form-input" id="newContactRole" placeholder="e.g. Family, Doctor" />
+    </div>
+    <div class="form-row">
+      <label class="form-label">Phone</label>
+      <input class="form-input" id="newContactPhone" type="tel" placeholder="e.g. (555) 234-5678" />
+    </div>
+    <div class="form-row">
+      <label class="form-label">Emergency?</label>
+      <select class="form-input" id="newContactEmerg">
+        <option value="yes">Yes — show in SOS</option>
+        <option value="no">No — just quick dial</option>
+      </select>
+    </div>
+    <button class="save-btn" onclick="addContact()">Add Contact</button>
+  </div>
+</div>
+
+<script>
+// ── STATE ──────────────────────────────────────────────────────────────────
+const STORAGE_KEY = 'eldercare_v1';
+function loadState() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || defaultState(); }
+  catch { return defaultState(); }
+}
+function saveState() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+
+function defaultState() {
+  return {
+    meds: [
+      { id:1, name:'Lisinopril', dose:'10mg', time:'08:00', note:'Take with water', taken:false, refillDays:5 },
+      { id:2, name:'Metformin', dose:'500mg', time:'12:00', note:'Take with food', taken:false, refillDays:22 },
+      { id:3, name:'Atorvastatin', dose:'20mg', time:'21:00', note:'Take at bedtime', taken:false, refillDays:14 },
+    ],
+    vitals: [
+      { type:'bp', value:'128/82', time: '2025-06-10T08:30' },
+      { type:'hr', value:'72 bpm', time: '2025-06-10T08:30' },
+      { type:'glucose', value:'98 mg/dL', time: '2025-06-10T07:15' },
+      { type:'weight', value:'162 lbs', time: '2025-06-09T09:00' },
+    ],
+    appointments: [
+      { id:1, doctor:'Dr. Patel', title:'Cardiology Follow-Up', date:'2025-06-18', time:'10:30', loc:'Heart Center, 200 Oak Ave' },
+      { id:2, doctor:'Dr. Lee', title:'Annual Physical', date:'2025-07-02', time:'14:00', loc:'Primary Care, 45 Elm St' },
+      { id:3, doctor:'Dr. Wang', title:'Eye Exam', date:'2025-07-15', time:'11:15', loc:'Vision Clinic, 88 Park Blvd' },
+    ],
+    hydration: 3,
+    hydrationDate: new Date().toDateString(),
+    contacts: [
+      { id:1, name:'Margaret', role:'Daughter', phone:'(555) 234-5678', emergency:'yes', color:'#dde5fb', initColor:'#1a56db' },
+      { id:2, name:'Robert', role:'Son', phone:'(555) 345-6789', emergency:'yes', color:'#dcfce7', initColor:'#15803d' },
+      { id:3, name:'Dr. Patel', role:'Cardiologist', phone:'(555) 456-7890', emergency:'no', color:'#fef3c7', initColor:'#92400e' },
+      { id:4, name:'Dr. Lee', role:'Primary Care', phone:'(555) 567-8901', emergency:'no', color:'#f3e8ff', initColor:'#6b21a8' },
+    ],
+    birthdays: [
+      { id:1, name:'Margaret (Daughter)', month:6, day:14 },
+      { id:2, name:'Robert (Son)',         month:9, day:3  },
+      { id:3, name:'Eleanor (Sister)',     month:5, day:22 },
+    ],
+    checkins: [],
+    doctorNotes: '',
+    userName: '',
+    nextMedId: 10, nextApptId: 10, nextContactId: 10, nextBdayId: 10,
+  };
+}
+
+let state = loadState();
+
+// ── CLOCK & GREETING ────────────────────────────────────────────────────────
+function updateClock() {
+  const now = new Date();
+  const h = now.getHours(), m = now.getMinutes();
+  const ampm = h >= 12 ? 'PM' : 'AM';
+  const hh = h % 12 || 12;
+  const mm = String(m).padStart(2,'0');
+
+  const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const fullMonths = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+  // Big clock on right — just the time digits
+  document.getElementById('clock').textContent = `${hh}:${mm}`;
+  document.getElementById('welcomeAmpm').textContent = ampm;
+
+  // Left side — name, date, day greeting
+  document.getElementById('welcomeName').textContent = state.userName || 'Friend';
+  document.getElementById('welcomeDate').textContent =
+    `${days[now.getDay()]} ${fullMonths[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
+
+  document.getElementById('greeting').textContent = '';
+}
+updateClock();
+setInterval(updateClock, 30000);
+
+// ── TABS ────────────────────────────────────────────────────────────────────
+function switchTab(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── TOAST ────────────────────────────────────────────────────────────────────
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ── MODALS ────────────────────────────────────────────────────────────────────
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+document.querySelectorAll('.modal-overlay').forEach(m => {
+  m.addEventListener('click', e => { if (e.target === m) m.classList.remove('open'); });
+});
+
+// ── MEDS ──────────────────────────────────────────────────────────────────
+function renderMeds() {
+  const list = document.getElementById('medList');
+  const refillList = document.getElementById('refillList');
+  const taken = state.meds.filter(m => m.taken).length;
+  const total = state.meds.length;
+  const pct = total ? Math.round(taken/total*100) : 0;
+
+  document.getElementById('medProgress').textContent = `${taken} / ${total} taken`;
+  document.getElementById('medBar').style.width = pct + '%';
+  document.getElementById('medPct').textContent = pct + '%';
+
+  const now = new Date();
+  const nowMin = now.getHours()*60 + now.getMinutes();
+
+  list.innerHTML = state.meds.map(med => {
+    const [mh, mm] = med.time.split(':').map(Number);
+    const medMin = mh*60 + mm;
+    const isDue = !med.taken && Math.abs(medMin - nowMin) <= 60;
+    const fmtTime = formatTime(med.time);
+    return `<div class="med-item">
+      <button class="med-check ${med.taken?'taken':''}" onclick="toggleMed(${med.id})">
+        ${med.taken ? '✓' : ''}
+      </button>
+      <div class="med-info">
+        <div class="med-name" style="${med.taken?'text-decoration:line-through;color:var(--muted)':''}">${med.name} <span style="font-weight:400;color:var(--muted);font-size:15px;">${med.dose}</span></div>
+        <div class="med-detail">${med.note}</div>
+      </div>
+      <div class="med-time ${isDue?'due':''}">${fmtTime}</div>
+    </div>`;
+  }).join('');
+
+  const refills = state.meds.filter(m => m.refillDays <= 14);
+  refillList.innerHTML = refills.length === 0
+    ? '<div style="color:var(--green);font-size:15px;">✓ All medications have sufficient supply</div>'
+    : refills.map(m =>
+      `<div class="history-item">
+        <span>💊 ${m.name}</span>
+        <span class="${m.refillDays<=7?'badge badge-red':'badge badge-amber'}">${m.refillDays} days left</span>
+      </div>`
+    ).join('');
+}
+
+function toggleMed(id) {
+  const med = state.meds.find(m => m.id === id);
+  if (!med) return;
+  med.taken = !med.taken;
+  saveState();
+  renderMeds();
+  showToast(med.taken ? `✓ ${med.name} marked as taken` : `${med.name} unmarked`);
+}
+
+function formatTime(t) {
+  const [h, m] = t.split(':').map(Number);
+  const ampm = h >= 12 ? 'PM' : 'AM';
+  return `${h%12||12}:${String(m).padStart(2,'0')} ${ampm}`;
+}
+
+function openAddMed() { openModal('addMedModal'); }
+function addMed() {
+  const name = document.getElementById('newMedName').value.trim();
+  const dose = document.getElementById('newMedDose').value.trim();
+  const time = document.getElementById('newMedTime').value;
+  const note = document.getElementById('newMedNote').value.trim();
+  if (!name || !time) { showToast('Please enter name and time'); return; }
+  state.meds.push({ id: state.nextMedId++, name, dose, time, note, taken: false, refillDays: 30 });
+  saveState(); closeModal('addMedModal'); renderMeds();
+  showToast(`✓ ${name} added`);
+  document.getElementById('newMedName').value='';
+  document.getElementById('newMedDose').value='';
+  document.getElementById('newMedNote').value='';
+}
+
+// ── VITALS ──────────────────────────────────────────────────────────────────
+const vitalConfig = {
+  bp:      { label:'Blood Pressure', icon:'🩺', unit:'mmHg', normal:'<130/80' },
+  hr:      { label:'Heart Rate',     icon:'❤️', unit:'bpm',  normal:'60-100 bpm' },
+  glucose: { label:'Blood Sugar',    icon:'🩸', unit:'mg/dL',normal:'70-140 mg/dL' },
+  weight:  { label:'Weight',         icon:'⚖️', unit:'lbs',  normal:'—' },
+  temp:    { label:'Temperature',    icon:'🌡️', unit:'°F',   normal:'97-99°F' },
+  o2:      { label:'Oxygen Level',   icon:'🫁', unit:'%',    normal:'>95%' },
+};
+
+function renderVitals() {
+  const grid = document.getElementById('vitalsGrid');
+  const history = document.getElementById('vitalHistory');
+
+  // Latest per type
+  const latest = {};
+  state.vitals.forEach(v => {
+    if (!latest[v.type]) latest[v.type] = v;
+  });
+
+  const types = ['bp','hr','glucose','weight','temp','o2'];
+  grid.innerHTML = types.map((t, i) => {
+    const cfg = vitalConfig[t];
+    const entry = latest[t];
+    const isLast = i === types.length -1 && types.length % 2 !== 0;
+    return `<div class="vital-card ${isLast?'full':''}" onclick="focusVital('${t}')">
+      <div class="vital-icon">${cfg.icon}</div>
+      <div class="vital-label">${cfg.label}</div>
+      <div class="vital-value">${entry ? entry.value : '—'}</div>
+      ${entry ? `<div class="vital-time">${fmtVitalTime(entry.time)}</div>` : '<div class="vital-time">Not logged</div>'}
+      <div class="vital-unit">Normal: ${cfg.normal}</div>
+    </div>`;
+  }).join('');
+
+  // History list (last 8)
+  const recent = [...state.vitals].reverse().slice(0,8);
+  history.innerHTML = recent.length === 0
+    ? '<div style="color:var(--muted);font-size:15px;">No readings logged yet</div>'
+    : recent.map(v => {
+      const cfg = vitalConfig[v.type] || {};
+      return `<div class="history-item">
+        <span>${cfg.icon||''} ${cfg.label||v.type}</span>
+        <span><span class="history-val">${v.value}</span> <span class="history-time">· ${fmtVitalTime(v.time)}</span></span>
+      </div>`;
+    }).join('');
+}
+
+function fmtVitalTime(iso) {
+  try {
+    const d = new Date(iso);
+    const now = new Date();
+    const diffH = Math.round((now-d)/3600000);
+    if (diffH < 1) return 'Just now';
+    if (diffH < 24) return `${diffH}h ago`;
+    return d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+  } catch { return ''; }
+}
+
+function focusVital(type) {
+  document.getElementById('vitalType').value = type;
+  document.getElementById('vitalValue').focus();
+}
+
+function logVital() {
+  const type = document.getElementById('vitalType').value;
+  const value = document.getElementById('vitalValue').value.trim();
+  if (!value) { showToast('Please enter a value'); return; }
+  const unit = vitalConfig[type]?.unit || '';
+  const formatted = value.includes(unit) || value.includes('bpm') || value.includes('/') || value.includes('%') ? value : `${value} ${unit}`;
+  state.vitals.unshift({ type, value: formatted.trim(), time: new Date().toISOString() });
+  if (state.vitals.length > 60) state.vitals = state.vitals.slice(0,60);
+  saveState();
+  document.getElementById('vitalValue').value = '';
+  renderVitals();
+  showToast(`✓ ${vitalConfig[type].label} logged`);
+}
+
+// ── APPOINTMENTS ────────────────────────────────────────────────────────────
+function renderAppointments() {
+  const list = document.getElementById('apptList');
+  if (!state.appointments.length) {
+    list.innerHTML = '<div style="color:var(--muted);font-size:15px;">No upcoming appointments</div>';
+    return;
+  }
+  const sorted = [...state.appointments].sort((a,b) => new Date(a.date) - new Date(b.date));
+  const today = new Date(); today.setHours(0,0,0,0);
+  list.innerHTML = sorted.map(a => {
+    const d = new Date(a.date + 'T00:00:00');
+    const diffDays = Math.ceil((d - today) / 86400000);
+    const month = d.toLocaleString('en-US',{month:'short'}).toUpperCase();
+    const day = d.getDate();
+    const soon = diffDays <= 3 ? 'soon' : '';
+    const urgencyLabel = diffDays === 0 ? 'TODAY' : diffDays === 1 ? 'TOMORROW' : diffDays <= 7 ? `${diffDays} days away` : '';
+    const fmtTime = a.time ? formatTime(a.time) : '';
+    return `<div class="appt-item">
+      <div class="appt-date-box"><div class="appt-month">${month}</div><div class="appt-day">${day}</div></div>
+      <div class="appt-info">
+        <div class="appt-title">${a.title}</div>
+        <div class="appt-doctor">${a.doctor}${a.loc ? ' · ' + a.loc : ''}</div>
+        <div class="appt-time">${fmtTime}</div>
+        ${urgencyLabel ? `<div class="appt-upcoming ${soon}">${urgencyLabel}</div>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('doctorNotes').value = state.doctorNotes || '';
+}
+
+function openAddAppt() { openModal('addApptModal'); }
+function addAppt() {
+  const doc   = document.getElementById('newApptDoc').value.trim();
+  const title = document.getElementById('newApptTitle').value.trim();
+  const date  = document.getElementById('newApptDate').value;
+  const time  = document.getElementById('newApptTime').value;
+  const loc   = document.getElementById('newApptLoc').value.trim();
+  if (!doc || !date) { showToast('Please enter doctor and date'); return; }
+  state.appointments.push({ id: state.nextApptId++, doctor:doc, title, date, time, loc });
+  saveState(); closeModal('addApptModal'); renderAppointments();
+  showToast('✓ Appointment added');
+}
+
+function saveDoctorNotes() {
+  state.doctorNotes = document.getElementById('doctorNotes').value;
+  saveState();
+  showToast('✓ Notes saved');
+}
+
+// ── HYDRATION ────────────────────────────────────────────────────────────────
+const GLASS_GOAL = 8;
+
+function resetHydrationIfNewDay() {
+  const today = new Date().toDateString();
+  if (state.hydrationDate !== today) {
+    state.hydration = 0;
+    state.hydrationDate = today;
+    saveState();
+  }
+}
+
+function renderHydration() {
+  resetHydrationIfNewDay();
+  const row = document.getElementById('glassRow');
+  row.innerHTML = Array.from({length: GLASS_GOAL}, (_,i) =>
+    `<button class="glass-btn ${i < state.hydration ? 'filled' : ''}" onclick="toggleGlass(${i})">💧</button>`
+  ).join('');
+  const pct = Math.round(state.hydration / GLASS_GOAL * 100);
+  document.getElementById('hydrationLabel').textContent = `${state.hydration} of ${GLASS_GOAL} glasses`;
+  document.getElementById('hydBar').style.width = pct + '%';
+  document.getElementById('hydPct').textContent = pct + '%';
+}
+
+function toggleGlass(idx) {
+  const newVal = idx < state.hydration ? idx : idx + 1;
+  state.hydration = newVal;
+  saveState();
+  renderHydration();
+  if (newVal >= GLASS_GOAL) showToast('🎉 Great job! Daily water goal reached!');
+}
+
+// ── CHECK-IN ─────────────────────────────────────────────────────────────────
+let selectedMood = null;
+function selectMood(btn, mood) {
+  selectedMood = mood;
+  document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+}
+function toggleSymptom(btn) { btn.classList.toggle('selected'); }
+
+function saveCheckin() {
+  if (!selectedMood) { showToast('Please select how you are feeling'); return; }
+  const symptoms = [...document.querySelectorAll('.symptom-chip.selected')].map(c => c.textContent.trim());
+  const notes = document.getElementById('checkinNotes').value.trim();
+  const moodEmoji = {great:'😄',okay:'🙂',tired:'😔',poor:'😟'}[selectedMood];
+  state.checkins.unshift({
+    date: new Date().toISOString(),
+    mood: selectedMood,
+    moodEmoji,
+    symptoms,
+    notes
+  });
+  if (state.checkins.length > 14) state.checkins = state.checkins.slice(0,14);
+  saveState();
+  // Reset
+  document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected'));
+  document.querySelectorAll('.symptom-chip').forEach(b => b.classList.remove('selected'));
+  document.getElementById('checkinNotes').value = '';
+  selectedMood = null;
+  renderCheckins();
+  showToast('✓ Check-in saved. Take care!');
+  if (symptoms.some(s => s.includes('Chest') || s.includes('breath'))) {
+    setTimeout(() => showToast('⚠️ Serious symptoms logged — please contact your doctor'), 3000);
+  }
+}
+
+function renderCheckins() {
+  const list = document.getElementById('checkinList');
+  if (!state.checkins.length) {
+    list.innerHTML = '<div style="color:var(--muted);font-size:15px;">No check-ins yet today</div>';
+    return;
+  }
+  list.innerHTML = state.checkins.slice(0,5).map(c => {
+    const d = new Date(c.date);
+    const timeStr = d.toLocaleString('en-US',{weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});
+    return `<div class="history-item" style="flex-direction:column;align-items:flex-start;gap:4px;padding:10px 0;">
+      <div style="display:flex;justify-content:space-between;width:100%;">
+        <span style="font-size:20px;">${c.moodEmoji} <strong style="font-size:15px;">${c.mood.charAt(0).toUpperCase()+c.mood.slice(1)}</strong></span>
+        <span class="history-time">${timeStr}</span>
+      </div>
+      ${c.symptoms.length ? `<div style="font-size:13px;color:var(--amber);">⚠️ ${c.symptoms.join(', ')}</div>` : ''}
+      ${c.notes ? `<div style="font-size:14px;color:var(--muted);">"${c.notes}"</div>` : ''}
+    </div>`;
+  }).join('');
+}
+
+// ── CONTACTS ─────────────────────────────────────────────────────────────────
+function renderContacts() {
+  const grid = document.getElementById('contactGrid');
+  grid.innerHTML = state.contacts.map(c => {
+    const initials = c.name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+    return `<div class="contact-card">
+      <div class="contact-avatar" style="background:${c.color};color:${c.initColor};">${initials}</div>
+      <div class="contact-name">${c.name}</div>
+      <div class="contact-role">${c.role}</div>
+      <div class="contact-phone">${c.phone}</div>
+      <a href="tel:${c.phone.replace(/\D/g,'')}" class="contact-call-btn">📞 Call</a>
+    </div>`;
+  }).join('');
+
+  // SOS contacts
+  const sosEmerg = state.contacts.filter(c => c.emergency === 'yes');
+  document.getElementById('sosContactList').innerHTML = sosEmerg.map(c =>
+    `<a href="tel:${c.phone.replace(/\D/g,'')}" style="display:block;text-decoration:none;">
+      <button style="width:100%;background:var(--blue);color:#fff;border:none;border-radius:10px;padding:14px;font-size:17px;font-weight:700;cursor:pointer;margin-bottom:8px;font-family:'DM Sans',sans-serif;">
+        📞 Call ${c.name} (${c.role})
+      </button>
+    </a>`
+  ).join('');
+}
+
+function openAddContact() { openModal('addContactModal'); }
+const avatarColors = [
+  ['#dde5fb','#1a56db'],['#dcfce7','#15803d'],['#fef3c7','#92400e'],
+  ['#f3e8ff','#6b21a8'],['#ccfbf1','#0f766e'],['#fee2e2','#c0152a'],
+];
+function addContact() {
+  const name  = document.getElementById('newContactName').value.trim();
+  const role  = document.getElementById('newContactRole').value.trim();
+  const phone = document.getElementById('newContactPhone').value.trim();
+  const emerg = document.getElementById('newContactEmerg').value;
+  if (!name || !phone) { showToast('Please enter name and phone'); return; }
+  const [color, initColor] = avatarColors[state.contacts.length % avatarColors.length];
+  state.contacts.push({ id: state.nextContactId++, name, role, phone, emergency: emerg, color, initColor });
+  saveState(); closeModal('addContactModal'); renderContacts();
+  showToast(`✓ ${name} added`);
+}
+
+// ── SOS ──────────────────────────────────────────────────────────────────────
+function openSOS() { renderContacts(); openModal('sosModal'); }
+function callEmergency() {
+  window.location.href = 'tel:911';
+  closeModal('sosModal');
+}
+
+// ── WEATHER ──────────────────────────────────────────────────────────────────
+const WEATHER_DATA = {
+  current: { temp: 59, condition: 'Mostly sunny', icon: '🌤️', high: 63, rain: 5 },
+  hourly: [
+    { time:'6 AM',  icon:'🌙', temp:52, rain:0  },
+    { time:'8 AM',  icon:'🌤️', temp:55, rain:0  },
+    { time:'10 AM', icon:'☀️', temp:58, rain:0  },
+    { time:'12 PM', icon:'☀️', temp:61, rain:5  },
+    { time:'2 PM',  icon:'🌤️', temp:63, rain:5  },
+    { time:'4 PM',  icon:'🌤️', temp:62, rain:10 },
+    { time:'6 PM',  icon:'🌥️', temp:60, rain:10 },
+    { time:'8 PM',  icon:'🌥️', temp:57, rain:5  },
+    { time:'10 PM', icon:'🌙', temp:54, rain:0  },
+  ]
+};
+
+function renderWeather() {
+  const w = WEATHER_DATA.current;
+  document.getElementById('wxTemp').textContent = w.temp;
+  document.getElementById('wxDesc').textContent = w.condition;
+  document.getElementById('wxIcon').textContent = w.icon;
+  document.getElementById('wxHigh').textContent = `High ${w.high}°F`;
+  document.getElementById('wxRain').textContent = `💧 ${w.rain}% rain chance`;
+
+  const now = new Date();
+  const nowH = now.getHours();
+  const forecast = document.getElementById('wxForecast');
+  forecast.innerHTML = WEATHER_DATA.hourly.map(h => {
+    const hNum = parseInt(h.time);
+    const isPM = h.time.includes('PM');
+    const h24 = isPM && hNum !== 12 ? hNum + 12 : (!isPM && hNum === 12 ? 0 : hNum);
+    const isCurrent = Math.abs(h24 - nowH) <= 1;
+    return `<div class="forecast-hour" style="${isCurrent ? 'background:rgba(255,255,255,0.08);border-radius:10px;' : ''}">
+      <div class="forecast-time">${h.time}</div>
+      <div class="forecast-icon">${h.icon}</div>
+      <div class="forecast-temp">${h.temp}°</div>
+      ${h.rain > 0 ? `<div class="forecast-rain">${h.rain}%</div>` : '<div class="forecast-rain" style="opacity:0">0%</div>'}
+    </div>`;
+  }).join('');
+}
+
+// ── BIRTHDAYS ─────────────────────────────────────────────────────────────────
+const shortMonths = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+function renderBirthdays() {
+  const list = document.getElementById('bdayList');
+  if (!state.birthdays || !state.birthdays.length) {
+    list.innerHTML = '<div style="color:var(--muted);font-size:15px;">No birthdays added yet</div>';
+    return;
+  }
+  const now = new Date();
+  const thisYear = now.getFullYear();
+
+  const withCountdown = state.birthdays.map(b => {
+    let next = new Date(thisYear, b.month - 1, b.day);
+    if (next < now) next = new Date(thisYear + 1, b.month - 1, b.day);
+    const diffDays = Math.ceil((next - now) / 86400000);
+    return { ...b, diffDays, next };
+  }).sort((a, b) => a.diffDays - b.diffDays);
+
+  list.innerHTML = withCountdown.map(b => {
+    const mon = shortMonths[b.month - 1].toUpperCase();
+    let countdownClass = 'later', countdownText = `${b.diffDays} days away`;
+    if (b.diffDays === 0) { countdownClass = 'today'; countdownText = '🎉 Today! Happy Birthday!'; }
+    else if (b.diffDays === 1) { countdownClass = 'soon'; countdownText = '🎁 Tomorrow!'; }
+    else if (b.diffDays <= 7) { countdownClass = 'soon'; countdownText = `🎈 In ${b.diffDays} days`; }
+    return `<div class="bday-item">
+      <div class="bday-date-box"><div class="bday-month">${mon}</div><div class="bday-day">${b.day}</div></div>
+      <div class="bday-info">
+        <div class="bday-name">${b.name}</div>
+        <div class="bday-countdown ${countdownClass}">${countdownText}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openAddBday() { openModal('addBdayModal'); }
+function addBday() {
+  const name  = document.getElementById('newBdayName').value.trim();
+  const month = parseInt(document.getElementById('newBdayMonth').value);
+  const day   = parseInt(document.getElementById('newBdayDay').value);
+  if (!name || !day || day < 1 || day > 31) { showToast('Please enter a name and valid day'); return; }
+  if (!state.birthdays) state.birthdays = [];
+  state.birthdays.push({ id: state.nextBdayId++, name, month, day });
+  saveState(); closeModal('addBdayModal'); renderBirthdays();
+  showToast(`🎂 ${name}'s birthday added`);
+  document.getElementById('newBdayName').value = '';
+  document.getElementById('newBdayDay').value = '';
+}
+
+// ── NEWS ──────────────────────────────────────────────────────────────────────
+const NEWS_ITEMS = [
+  {
+    id: 1, category: 'national',
+    tag: '🇺🇸 National', tagClass: 'tag-national',
+    headline: 'Federal Reserve Holds Interest Rates Steady for Third Time',
+    summary: 'The Fed announced it is keeping interest rates paused at its April meeting — its third such pause this year. Mortgage rates now average 6.37% on a 30-year loan.',
+    source: 'CBS News', time: '5 hours ago',
+    url: 'https://www.cbsnews.com/news/todays-mortgage-interest-rates-april-30-2026/'
+  },
+  {
+    id: 2, category: 'health',
+    tag: '❤️ Health', tagClass: 'tag-health',
+    headline: 'Walking & Balance Exercises Ranked Top Priority for Older Adults in 2026',
+    summary: 'Experts say functional strength training, tai chi, and short daily walks are the most effective activities for seniors this year — focused on fall prevention and everyday independence.',
+    source: 'National Church Residences', time: 'This week',
+    url: 'https://www.nationalchurchresidences.org/blog/senior-wellness-programs-trends-2026/'
+  },
+  {
+    id: 3, category: 'national',
+    tag: '🇺🇸 National', tagClass: 'tag-national',
+    headline: 'U.S.-Iran Tensions Continue as Blockade Negotiations Stall',
+    summary: 'The White House is working with allies on a maritime coalition to keep the Strait of Hormuz open. President Trump has rejected Iran\'s latest proposal while new ceasefire talks are being explored.',
+    source: 'Axios / Just Security', time: '6 hours ago',
+    url: 'https://www.justsecurity.org/137481/early-edition-april-30-2026/'
+  },
+  {
+    id: 4, category: 'health',
+    tag: '❤️ Health', tagClass: 'tag-health',
+    headline: 'Brain Health Tip: Social Connection Reduces Risk of Cognitive Decline',
+    summary: 'New research confirms that regular conversations, group activities, and meaningful relationships are among the strongest protectors of memory and mental sharpness as we age.',
+    source: 'Thrive Senior Living', time: 'This week',
+    url: 'https://thrivesl.com/blog/senior-well-trends-2026/'
+  },
+  {
+    id: 5, category: 'health',
+    tag: '❤️ Health', tagClass: 'tag-health',
+    headline: 'Staying Hydrated: Why Older Adults Need Extra Reminders to Drink Water',
+    summary: 'Dehydration affects energy, digestion, and mental clarity in seniors more than any other age group. Experts recommend sipping water throughout the day, not just when thirsty.',
+    source: 'NCOA Health', time: 'This week',
+    url: 'https://www.ncoa.org/older-adults/health/'
+  },
+  {
+    id: 6, category: 'local',
+    tag: '📍 Local', tagClass: 'tag-local',
+    headline: 'Bay Area Weather: Mild and Sunny Thursday with High Near 63°F',
+    summary: 'San Mateo sees a warm and clear day today. Temperatures stay comfortable through the weekend with a slight chance of rain arriving by Saturday.',
+    source: 'Weather Service', time: 'This morning',
+    url: '#'
+  },
+  {
+    id: 7, category: 'national',
+    tag: '🇺🇸 National', tagClass: 'tag-national',
+    headline: 'King Charles Health Update & Free Speech Debates Dominate Headlines',
+    summary: 'Major stories this week include updates on the British royal family\'s health, ongoing debates about free speech on campus, and passport processing delays at State Department.',
+    source: 'CNN', time: '1 day ago',
+    url: 'https://www.cnn.com/2026/04/29/us/5-things-to-know-for-april-29-free-speech-king-charles-tornado-devastation-elon-musk-passports'
+  },
+  {
+    id: 8, category: 'health',
+    tag: '❤️ Health', tagClass: 'tag-health',
+    headline: 'Sleep 7–9 Hours a Night: Doctors Say It\'s Your #1 Longevity Tool',
+    summary: 'Two leading physicians say quality sleep supports immune function, mood, and metabolism — and makes all other healthy habits easier to maintain. Adults 65+ often need adjustments to their sleep routine.',
+    source: 'Fox News Health', time: '4 months ago',
+    url: 'https://www.foxnews.com/health/6-pillars-healthier-lifestyle-2026-from-experts-staying-young'
+  },
+];
+
+const TIPS = [
+  '💧 Drink a glass of water first thing in the morning — your body loses water overnight during sleep.',
+  '🚶 Even a 10-minute walk after meals helps lower blood sugar and improves digestion.',
+  '🧠 Call a friend or family member today — social connection is one of the best things for brain health.',
+  '😴 Try to go to bed at the same time each night. A consistent sleep schedule strengthens your body\'s natural rhythms.',
+  '🍎 Add one colorful fruit or vegetable to your next meal. Berries, leafy greens, and carrots are especially good for seniors.',
+  '🧘 Take three slow, deep breaths when you feel stressed. This activates your body\'s calming response.',
+  '🌞 Get outside for even 15 minutes of natural light today — it helps your mood and supports vitamin D.',
+];
+
+let activeNewsFilter = 'all';
+
+function renderNews() {
+  const list = document.getElementById('newsList');
+  const filtered = activeNewsFilter === 'all'
+    ? NEWS_ITEMS
+    : NEWS_ITEMS.filter(n => n.category === activeNewsFilter);
+
+  list.innerHTML = filtered.map(n => `
+    <div class="news-item">
+      <div class="news-category-tag ${n.tagClass}">${n.tag}</div>
+      <div class="news-headline">${n.headline}</div>
+      <div class="news-summary">${n.summary}</div>
+      <div class="news-meta">
+        <span class="news-source">${n.source}</span>
+        <span>·</span>
+        <span>${n.time}</span>
+      </div>
+      ${n.url !== '#' ? `<a class="news-read-more" href="${n.url}" target="_blank">Read full story →</a>` : ''}
+    </div>
+  `).join('');
+
+  // Tip of the day — rotate by day of year
+  const doy = Math.floor((new Date() - new Date(new Date().getFullYear(),0,0)) / 86400000);
+  const tip = TIPS[doy % TIPS.length];
+  document.getElementById('tipOfDay').innerHTML = `<strong>Today\'s tip:</strong> ${tip}`;
+}
+
+function filterNews(cat, btn) {
+  activeNewsFilter = cat;
+  document.querySelectorAll('.news-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderNews();
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+function init() {
+  renderMeds();
+  renderVitals();
+  renderAppointments();
+  renderBirthdays();
+  renderWeather();
+  renderHydration();
+  renderCheckins();
+  renderContacts();
+  renderNews();
+}
+init();
+</script>
+
+<!-- ADD BIRTHDAY MODAL -->
+<div class="modal-overlay" id="addBdayModal">
+  <div class="modal">
+    <div class="modal-title">🎂 Add Birthday</div>
+    <button class="modal-close" onclick="closeModal('addBdayModal')">✕</button>
+    <div class="form-row">
+      <label class="form-label">Name</label>
+      <input class="form-input" id="newBdayName" placeholder="e.g. Margaret (Daughter)" />
+    </div>
+    <div class="form-row">
+      <label class="form-label">Month</label>
+      <select class="form-input" id="newBdayMonth">
+        <option value="1">January</option><option value="2">February</option>
+        <option value="3">March</option><option value="4">April</option>
+        <option value="5">May</option><option value="6">June</option>
+        <option value="7">July</option><option value="8">August</option>
+        <option value="9">September</option><option value="10">October</option>
+        <option value="11">November</option><option value="12">December</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Day</label>
+      <input class="form-input" id="newBdayDay" type="number" min="1" max="31" placeholder="e.g. 14" />
+    </div>
+    <button class="save-btn" onclick="addBday()">Add Birthday</button>
+  </div>
+</div>
+
+<div style="text-align:center;padding:18px 16px 8px;font-size:12px;color:#8a93b0;font-family:'DM Sans',sans-serif;">
+  Built with Claude &nbsp;·&nbsp;
+  <a href="https://claude.ai/chat/21b62366-4965-4aed-8d07-67e7e0adeaf7" target="_blank"
+     style="color:#1a56db;font-weight:600;text-decoration:none;">Open dev chat →</a>
+</div>
+
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
