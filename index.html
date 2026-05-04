@@ -778,6 +778,198 @@
     }
     .news-read-more:hover { text-decoration: underline; }
 
+    /* ── ACTIVITY ── */
+    .activity-banner {
+      background: linear-gradient(135deg, #064e3b 0%, #065f46 100%);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .activity-emoji { font-size: 42px; flex-shrink: 0; }
+    .activity-text { flex: 1; }
+    .activity-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: #6ee7b7;
+      margin-bottom: 4px;
+    }
+    .activity-suggestion {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px;
+      color: #fff;
+      line-height: 1.25;
+    }
+    .activity-benefit {
+      font-size: 13px;
+      color: #a7f3d0;
+      margin-top: 5px;
+    }
+    .activity-refresh {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.2s, transform 0.3s;
+      color: #fff;
+    }
+    .activity-refresh:hover { background: rgba(255,255,255,0.2); }
+    .activity-refresh.spin { transform: rotate(360deg); }
+    .activity-log-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .activity-log-btn {
+      flex: 1;
+      background: #fff;
+      color: #064e3b;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: background 0.2s;
+    }
+    .activity-log-btn:hover { background: #d1fae5; }
+    .activity-skip-btn {
+      background: rgba(255,255,255,0.1);
+      color: #a7f3d0;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: background 0.2s;
+    }
+    .activity-skip-btn:hover { background: rgba(255,255,255,0.18); }
+    .activity-streak {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+    .streak-left { display: flex; align-items: center; gap: 12px; }
+    .streak-fire { font-size: 30px; }
+    .streak-count {
+      font-family: 'DM Serif Display', serif;
+      font-size: 32px;
+      color: var(--navy);
+      line-height: 1;
+    }
+    .streak-label { font-size: 13px; color: var(--muted); margin-top: 2px; }
+    .streak-days {
+      display: flex;
+      gap: 6px;
+    }
+    .streak-day {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--bg-mid);
+      color: var(--muted);
+    }
+    .streak-day.done { background: #d1fae5; color: #065f46; }
+    .streak-day.today { border: 2px solid #059669; }
+    .activity-history { margin-top: 4px; }
+
+    /* ── THEME SWITCHER ── */
+    .theme-bar {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .theme-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-right: 4px;
+    }
+    .theme-swatch {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 3px solid transparent;
+      cursor: pointer;
+      transition: transform 0.15s, border-color 0.15s;
+      flex-shrink: 0;
+    }
+    .theme-swatch:hover { transform: scale(1.15); }
+    .theme-swatch.active { border-color: var(--text); transform: scale(1.12); }
+    .theme-name {
+      font-size: 13px;
+      color: var(--muted);
+      font-style: italic;
+      margin-left: 4px;
+    }
+
+    /* ── THEME DEFINITIONS ── */
+    body[data-theme="classic"] {
+      --bg: #f5f0e8; --bg-soft: #faf7f2; --bg-mid: #ede8de;
+      --blue: #1a56db; --blue-dark: #1244b8; --blue-light: #eff3fe; --blue-mid: #dde5fb;
+      --navy: #0d1b3e; --text: #1a1a2e; --muted: #5a6480; --muted-light: #8a93b0;
+      --border: #d8d0c0; --border-mid: #c8c0b0;
+    }
+    body[data-theme="ocean"] {
+      --bg: #f0f7ff; --bg-soft: #f8fbff; --bg-mid: #dceeff;
+      --blue: #0369a1; --blue-dark: #075985; --blue-light: #e0f2fe; --blue-mid: #bae6fd;
+      --navy: #0c2340; --text: #0f2a4a; --muted: #4a7a9b; --muted-light: #7aadc7;
+      --border: #b8d8f0; --border-mid: #90c0e0;
+    }
+    body[data-theme="forest"] {
+      --bg: #f0f7f0; --bg-soft: #f8fdf8; --bg-mid: #d8eedd;
+      --blue: #166534; --blue-dark: #14532d; --blue-light: #dcfce7; --blue-mid: #bbf7d0;
+      --navy: #052e16; --text: #0f2d1a; --muted: #4a7a5a; --muted-light: #7aaa8a;
+      --border: #b8d8c0; --border-mid: #90c0a0;
+    }
+    body[data-theme="sunset"] {
+      --bg: #fff7f0; --bg-soft: #fffaf7; --bg-mid: #ffe8d8;
+      --blue: #c2410c; --blue-dark: #9a3412; --blue-light: #fff0e8; --blue-mid: #fed7aa;
+      --navy: #431407; --text: #3a1a0a; --muted: #8a4a30; --muted-light: #b07060;
+      --border: #f0c8a8; --border-mid: #e0a880;
+    }
+    body[data-theme="lavender"] {
+      --bg: #f5f0ff; --bg-soft: #faf8ff; --bg-mid: #e8e0ff;
+      --blue: #6d28d9; --blue-dark: #5b21b6; --blue-light: #ede9fe; --blue-mid: #ddd6fe;
+      --navy: #2e1065; --text: #1e0a4a; --muted: #6a5a8a; --muted-light: #9a8ab0;
+      --border: #c8b8e8; --border-mid: #a890d0;
+    }
+    body[data-theme="night"] {
+      --bg: #1a1a2e; --bg-soft: #16213e; --bg-mid: #0f3460;
+      --blue: #4fc3f7; --blue-dark: #29b6f6; --blue-light: #1a3a5c; --blue-mid: #1e4a6e;
+      --navy: #e0e8ff; --text: #e8eaf6; --muted: #90a4c8; --muted-light: #7090b0;
+      --border: #2a3a5e; --border-mid: #3a4a6e;
+      --green: #4caf50; --green-bg: #1a3a1e; --green-border: #2e6b32;
+      --amber: #ffb74d; --amber-bg: #3a2a10; --red: #ef5350; --red-bg: #3a1818;
+    }
+
     @media (min-width: 480px) {
       body { font-size: 19px; }
     }
@@ -822,6 +1014,7 @@
   <button class="tab-btn" onclick="switchTab('checkin', this)">😊 Check-In</button>
   <button class="tab-btn" onclick="switchTab('contacts', this)">📞 Contacts</button>
   <button class="tab-btn" onclick="switchTab('news', this)">📰 News</button>
+  <button class="tab-btn" onclick="switchTab('activity', this)">🚶 Move</button>
 </div>
 
 <!-- MAIN -->
@@ -956,6 +1149,21 @@
 
   <!-- CHECK-IN SECTION -->
   <div class="section" id="sec-checkin">
+
+    <div class="card">
+      <div class="card-title" style="margin-bottom:14px;"><span class="card-title-icon">🎨</span> App Theme</div>
+      <div class="theme-bar">
+        <span class="theme-label">Choose a look:</span>
+        <button class="theme-swatch active" data-theme="classic" onclick="setTheme('classic', this)" style="background: linear-gradient(135deg,#f5f0e8,#0d1b3e)" title="Classic"></button>
+        <button class="theme-swatch" data-theme="ocean"    onclick="setTheme('ocean', this)"   style="background: linear-gradient(135deg,#f0f7ff,#0c2340)" title="Ocean"></button>
+        <button class="theme-swatch" data-theme="forest"   onclick="setTheme('forest', this)"  style="background: linear-gradient(135deg,#f0f7f0,#052e16)" title="Forest"></button>
+        <button class="theme-swatch" data-theme="sunset"   onclick="setTheme('sunset', this)"  style="background: linear-gradient(135deg,#fff7f0,#431407)" title="Sunset"></button>
+        <button class="theme-swatch" data-theme="lavender" onclick="setTheme('lavender', this)" style="background: linear-gradient(135deg,#f5f0ff,#2e1065)" title="Lavender"></button>
+        <button class="theme-swatch" data-theme="night"    onclick="setTheme('night', this)"   style="background: linear-gradient(135deg,#1a1a2e,#4fc3f7)" title="Night"></button>
+        <span class="theme-name" id="themeName">Classic</span>
+      </div>
+    </div>
+
     <div class="card">
       <div class="card-title" style="margin-bottom:16px; justify-content:center;"><span class="card-title-icon">😊</span> How Are You Today?</div>
       <div class="checkin-question">How are you feeling right now?</div>
@@ -1000,6 +1208,59 @@
         <div style="display:flex;justify-content:space-between;"><span>🌙 Crisis Hotline</span><a href="tel:988" style="color:var(--blue);font-weight:700;text-decoration:none;">988</a></div>
       </div>
     </div>
+  </div>
+
+  <!-- ACTIVITY SECTION -->
+  <div class="section" id="sec-activity">
+
+    <div class="activity-banner" id="activityBanner">
+      <div class="activity-emoji" id="activityEmoji">🚶</div>
+      <div class="activity-text">
+        <div class="activity-label">🌿 Today's Activity Idea</div>
+        <div class="activity-suggestion" id="activitySuggestion">Loading…</div>
+        <div class="activity-benefit" id="activityBenefit"></div>
+      </div>
+      <button class="activity-refresh" id="activityRefreshBtn" onclick="newActivity()" title="New suggestion">↻</button>
+    </div>
+    <div class="activity-log-row">
+      <button class="activity-log-btn" onclick="logActivity()">✓ I Did This!</button>
+      <button class="activity-skip-btn" onclick="newActivity()">Try Another →</button>
+    </div>
+
+    <div class="activity-streak" style="margin-top:14px;">
+      <div class="streak-left">
+        <div class="streak-fire">🔥</div>
+        <div>
+          <div class="streak-count" id="streakCount">0</div>
+          <div class="streak-label">day streak</div>
+        </div>
+      </div>
+      <div class="streak-days" id="streakDays"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title" style="margin-bottom:12px;"><span class="card-title-icon">📋</span> Activity Log</div>
+      <div id="activityHistory"></div>
+      <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);">
+        <div class="card-title" style="font-size:16px;margin-bottom:10px;">🖊️ Log Your Own</div>
+        <div class="form-row">
+          <input class="form-input" id="customActivity" placeholder="e.g. Walked to the mailbox" />
+        </div>
+        <button class="save-btn" onclick="logCustomActivity()">Log Activity</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title" style="margin-bottom:12px;"><span class="card-title-icon">💡</span> Why Moving Matters</div>
+      <div style="font-size:15px;color:var(--muted);line-height:1.8;">
+        <p>🫀 <strong>Heart health:</strong> Even a 10-min walk strengthens your heart</p>
+        <p>🧠 <strong>Memory:</strong> Movement boosts blood flow to the brain</p>
+        <p>😊 <strong>Mood:</strong> Exercise releases natural feel-good chemicals</p>
+        <p>🦴 <strong>Bones & balance:</strong> Reduces fall risk and keeps joints flexible</p>
+        <p>😴 <strong>Sleep:</strong> Active days lead to deeper, more restful nights</p>
+      </div>
+    </div>
+
   </div>
 
   <!-- NEWS SECTION -->
@@ -1169,6 +1430,8 @@ function defaultState() {
       { id:3, name:'Eleanor (Sister)',     month:5, day:22 },
     ],
     checkins: [],
+    activityLog: [],
+    activityStreak: { count: 0, lastDate: '', days: [] },
     doctorNotes: '',
     userName: '',
     nextMedId: 10, nextApptId: 10, nextContactId: 10, nextBdayId: 10,
@@ -1764,8 +2027,160 @@ function filterNews(cat, btn) {
   renderNews();
 }
 
+// ── ACTIVITY ─────────────────────────────────────────────────────────────────
+const ACTIVITIES = [
+  { emoji:'🚶', text:'Walk around the block', benefit:'Boosts circulation and clears your mind' },
+  { emoji:'🌳', text:'Stroll to a nearby park or garden', benefit:'Fresh air and nature reduce stress and lift mood' },
+  { emoji:'👥', text:'Walk over to visit a neighbor or friend', benefit:'Combines movement with social connection — great for the brain' },
+  { emoji:'🌅', text:'Step outside and watch the sunrise or sunset', benefit:'Light exposure helps regulate sleep and mood' },
+  { emoji:'🐕', text:'Take a slow walk with a pet or offer to walk a neighbor\'s dog', benefit:'Animals boost serotonin and walking improves heart health' },
+  { emoji:'🛒', text:'Walk to a nearby store instead of driving', benefit:'Everyday movement adds up — every step counts' },
+  { emoji:'💃', text:'Put on your favorite music and dance for one song', benefit:'Dancing improves balance, coordination, and joy' },
+  { emoji:'🧹', text:'Do a slow tidy-up around the house', benefit:'Light housework keeps joints moving and gives a sense of accomplishment' },
+  { emoji:'🌿', text:'Water your plants or do a little gardening', benefit:'Gentle bending and reaching keeps your body flexible' },
+  { emoji:'🪑', text:'Do 5 minutes of seated leg lifts and arm circles', benefit:'Builds strength and improves circulation without getting up' },
+  { emoji:'🧘', text:'Try 5 minutes of gentle stretching', benefit:'Reduces stiffness and improves flexibility and balance' },
+  { emoji:'📬', text:'Walk to the mailbox and back — twice', benefit:'Short repeated walks throughout the day are just as beneficial as one long one' },
+  { emoji:'☕', text:'Walk to a nearby café for your morning coffee', benefit:'A purposeful errand makes movement feel natural and enjoyable' },
+  { emoji:'🦢', text:'Find a bench outside and sit in the sun for 15 minutes', benefit:'Sunlight boosts vitamin D and serotonin levels' },
+  { emoji:'🎯', text:'Walk while talking on your next phone call', benefit:'Turns idle time into active time — 10 minutes adds up fast' },
+  { emoji:'🏪', text:'Park farther away next time you drive somewhere', benefit:'Small choices create lasting habits over time' },
+  { emoji:'🧺', text:'Slowly carry laundry or groceries one bag at a time', benefit:'Light lifting strengthens arms and legs safely' },
+  { emoji:'🌊', text:'Drive to the waterfront and take a short walk', benefit:'Being near water is calming and encourages longer strolls' },
+];
+
+let currentActivityIdx = 0;
+
+function pickActivity() {
+  // Pick based on time of day + random variety
+  const seed = new Date().getHours() + new Date().getDate();
+  return (seed + Math.floor(Math.random() * 3)) % ACTIVITIES.length;
+}
+
+function renderActivity() {
+  currentActivityIdx = pickActivity();
+  showActivity(currentActivityIdx);
+  renderActivityHistory();
+  renderStreak();
+}
+
+function showActivity(idx) {
+  const a = ACTIVITIES[idx];
+  document.getElementById('activityEmoji').textContent = a.emoji;
+  document.getElementById('activitySuggestion').textContent = a.text;
+  document.getElementById('activityBenefit').textContent = '✨ ' + a.benefit;
+}
+
+function newActivity() {
+  currentActivityIdx = (currentActivityIdx + 1) % ACTIVITIES.length;
+  showActivity(currentActivityIdx);
+  const btn = document.getElementById('activityRefreshBtn');
+  btn.classList.add('spin');
+  setTimeout(() => btn.classList.remove('spin'), 350);
+}
+
+function logActivity() {
+  const a = ACTIVITIES[currentActivityIdx];
+  logActivityEntry(a.emoji + ' ' + a.text);
+}
+
+function logCustomActivity() {
+  const val = document.getElementById('customActivity').value.trim();
+  if (!val) { showToast('Please enter an activity'); return; }
+  logActivityEntry('🏃 ' + val);
+  document.getElementById('customActivity').value = '';
+}
+
+function logActivityEntry(text) {
+  if (!state.activityLog) state.activityLog = [];
+  state.activityLog.unshift({ text, date: new Date().toISOString() });
+  if (state.activityLog.length > 30) state.activityLog = state.activityLog.slice(0, 30);
+
+  // Update streak
+  const today = new Date().toDateString();
+  if (!state.activityStreak) state.activityStreak = { count: 0, lastDate: '', days: [] };
+  const streak = state.activityStreak;
+  if (streak.lastDate !== today) {
+    const yesterday = new Date(); yesterday.setDate(yesterday.getDate() - 1);
+    if (streak.lastDate === yesterday.toDateString()) {
+      streak.count++;
+    } else if (streak.lastDate !== today) {
+      streak.count = 1;
+    }
+    streak.lastDate = today;
+    if (!streak.days) streak.days = [];
+    streak.days.unshift(today);
+    if (streak.days.length > 7) streak.days = streak.days.slice(0, 7);
+  }
+
+  saveState();
+  renderActivityHistory();
+  renderStreak();
+  showToast('🎉 Great job! Activity logged!');
+  newActivity();
+}
+
+function renderActivityHistory() {
+  const el = document.getElementById('activityHistory');
+  if (!state.activityLog || !state.activityLog.length) {
+    el.innerHTML = '<div style="color:var(--muted);font-size:15px;">No activities logged yet today — let\'s get moving!</div>';
+    return;
+  }
+  el.innerHTML = state.activityLog.slice(0, 7).map(a => {
+    const d = new Date(a.date);
+    const timeStr = d.toLocaleString('en-US', { weekday:'short', month:'short', day:'numeric', hour:'numeric', minute:'2-digit' });
+    return `<div class="history-item">
+      <span>${a.text}</span>
+      <span class="history-time">${timeStr}</span>
+    </div>`;
+  }).join('');
+}
+
+function renderStreak() {
+  const streak = state.activityStreak || { count: 0, days: [] };
+  document.getElementById('streakCount').textContent = streak.count || 0;
+
+  const dayNames = ['S','M','T','W','T','F','S'];
+  const today = new Date();
+  const days = document.getElementById('streakDays');
+  days.innerHTML = Array.from({ length: 7 }, (_, i) => {
+    const d = new Date(today);
+    d.setDate(today.getDate() - (6 - i));
+    const isToday = i === 6;
+    const isDone = streak.days && streak.days.includes(d.toDateString());
+    return `<div class="streak-day ${isDone ? 'done' : ''} ${isToday ? 'today' : ''}">
+      ${dayNames[d.getDay()]}
+    </div>`;
+  }).join('');
+}
+
+// ── THEME ────────────────────────────────────────────────────────────────────
+const THEME_NAMES = {
+  classic: 'Classic', ocean: 'Ocean', forest: 'Forest',
+  sunset: 'Sunset', lavender: 'Lavender', night: 'Night Mode'
+};
+
+function setTheme(theme, btn) {
+  document.body.setAttribute('data-theme', theme);
+  localStorage.setItem('eldercare_theme', theme);
+  document.querySelectorAll('.theme-swatch').forEach(s => s.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  else {
+    const s = document.querySelector(`.theme-swatch[data-theme="${theme}"]`);
+    if (s) s.classList.add('active');
+  }
+  const nameEl = document.getElementById('themeName');
+  if (nameEl) nameEl.textContent = THEME_NAMES[theme] || theme;
+}
+
+function loadTheme() {
+  const saved = localStorage.getItem('eldercare_theme') || 'classic';
+  setTheme(saved, null);
+}
+
 // ── INIT ──────────────────────────────────────────────────────────────────────
 function init() {
+  loadTheme();
   renderMeds();
   renderVitals();
   renderAppointments();
@@ -1775,6 +2190,7 @@ function init() {
   renderCheckins();
   renderContacts();
   renderNews();
+  renderActivity();
 }
 init();
 </script>
