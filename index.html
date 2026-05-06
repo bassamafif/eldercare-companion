@@ -8,6 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230c0c0b'/><text x='50%' y='72%' font-family='Georgia,serif' font-size='20' fill='%23c4420a' text-anchor='middle'>B</text></svg>" />
+  <!-- Vercel Web Analytics -->
+  <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
   <style>
     :root {
       --bg: #f5f0e8;
@@ -1008,7 +1010,7 @@
 <!-- TABS -->
 <div class="nav-tabs" id="navTabs">
   <button class="tab-btn active" onclick="switchTab('meds', this)">💊 Meds</button>
-  <button class="tab-btn" onclick="switchTab('vitals', this)">❤️ Vitals</button>
+  <button class="tab-btn" onclick="switchTab('vitals', this)">❤��� Vitals</button>
   <button class="tab-btn" onclick="switchTab('appointments', this)">📅 Appts</button>
   <button class="tab-btn" onclick="switchTab('hydration', this)">💧 Water</button>
   <button class="tab-btn" onclick="switchTab('checkin', this)">😊 Check-In</button>
@@ -1481,7 +1483,7 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2500);
 }
 
-// ── MODALS ────────────────────────────────────────────────────────────────────
+// ── MODALS ──────���─────────────────────────────────────────────────────────────
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 function openModal(id) { document.getElementById(id).classList.add('open'); }
 document.querySelectorAll('.modal-overlay').forEach(m => {
