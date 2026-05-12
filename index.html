@@ -972,6 +972,138 @@
       --amber: #ffb74d; --amber-bg: #3a2a10; --red: #ef5350; --red-bg: #3a1818;
     }
 
+    /* ── BADGES ── */
+    .badges-summary {
+      background: linear-gradient(135deg, #1e3a5f 0%, #0d1b3e 100%);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 14px;
+      text-align: center;
+      color: #fff;
+    }
+    .badges-summary-count {
+      font-family: 'DM Serif Display', serif;
+      font-size: 52px;
+      color: #f6c87a;
+      line-height: 1;
+    }
+    .badges-summary-label {
+      font-size: 14px;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+    .badges-summary-row {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+    .badges-summary-earned {
+      font-size: 26px;
+      filter: none;
+    }
+    .badge-category-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 4px 0 10px;
+      display: block;
+    }
+    .badges-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .badge-card {
+      background: #fff;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 14px;
+      text-align: center;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .badge-card.earned {
+      border-color: #f6c87a;
+      background: linear-gradient(160deg, #fffbef 0%, #fff 60%);
+      box-shadow: 0 4px 16px rgba(246,200,122,0.25);
+    }
+    .badge-card.locked {
+      opacity: 0.55;
+      filter: grayscale(0.6);
+    }
+    .badge-card.earned::after {
+      content: '✓';
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #d97706;
+      background: #fef3c7;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 20px;
+    }
+    .badge-icon { font-size: 38px; margin-bottom: 8px; display: block; }
+    .badge-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 15px;
+      color: var(--navy);
+      line-height: 1.2;
+      margin-bottom: 5px;
+    }
+    .badge-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+    .badge-earned-date {
+      font-size: 11px;
+      color: #d97706;
+      font-weight: 600;
+      margin-top: 6px;
+    }
+    .badge-locked-hint {
+      font-size: 11px;
+      color: var(--muted-light);
+      margin-top: 6px;
+      font-style: italic;
+    }
+    .new-badge-toast {
+      position: fixed;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%) scale(0.8);
+      background: linear-gradient(135deg, #1e3a5f, #0d1b3e);
+      color: #fff;
+      padding: 16px 24px;
+      border-radius: 20px;
+      text-align: center;
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index: 3000;
+      pointer-events: none;
+      min-width: 240px;
+      border: 2px solid #f6c87a;
+    }
+    .new-badge-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+    }
+    .new-badge-toast-icon { font-size: 40px; display: block; margin-bottom: 6px; }
+    .new-badge-toast-title { font-size: 13px; color: #f6c87a; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+    .new-badge-toast-name { font-family: 'DM Serif Display', serif; font-size: 20px; margin-top: 4px; }
+
     @media (min-width: 480px) {
       body { font-size: 19px; }
     }
@@ -1017,6 +1149,7 @@
   <button class="tab-btn" onclick="switchTab('contacts', this)">📞 Contacts</button>
   <button class="tab-btn" onclick="switchTab('news', this)">📰 News</button>
   <button class="tab-btn" onclick="switchTab('activity', this)">🚶 Move</button>
+  <button class="tab-btn" onclick="switchTab('badges', this)">🏅 Badges</button>
 </div>
 
 <!-- MAIN -->
@@ -1265,6 +1398,42 @@
 
   </div>
 
+  <!-- BADGES SECTION -->
+  <div class="section" id="sec-badges">
+
+    <div class="badges-summary">
+      <div class="badges-summary-count" id="badgeEarnedCount">0</div>
+      <div class="badges-summary-label">badges earned</div>
+      <div class="badges-summary-row" id="badgeSummaryIcons"></div>
+    </div>
+
+    <div class="card">
+      <span class="badge-category-label">💊 Medications</span>
+      <div class="badges-grid" id="badgesMeds"></div>
+    </div>
+    <div class="card">
+      <span class="badge-category-label">💧 Hydration</span>
+      <div class="badges-grid" id="badgesHydration"></div>
+    </div>
+    <div class="card">
+      <span class="badge-category-label">🚶 Activity</span>
+      <div class="badges-grid" id="badgesActivity"></div>
+    </div>
+    <div class="card">
+      <span class="badge-category-label">😊 Check-In</span>
+      <div class="badges-grid" id="badgesCheckin"></div>
+    </div>
+    <div class="card">
+      <span class="badge-category-label">❤️ Vitals</span>
+      <div class="badges-grid" id="badgesVitals"></div>
+    </div>
+    <div class="card">
+      <span class="badge-category-label">🌟 Overall</span>
+      <div class="badges-grid" id="badgesOverall"></div>
+    </div>
+
+  </div>
+
   <!-- NEWS SECTION -->
   <div class="section" id="sec-news">
 
@@ -1293,6 +1462,11 @@
 
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
+<div class="new-badge-toast" id="badgeToast">
+  <span class="new-badge-toast-icon" id="badgeToastIcon">🏅</span>
+  <div class="new-badge-toast-title">🎉 New Badge Unlocked!</div>
+  <div class="new-badge-toast-name" id="badgeToastName"></div>
+</div>
 
 <!-- SOS MODAL -->
 <div class="modal-overlay" id="sosModal">
@@ -1434,6 +1608,13 @@ function defaultState() {
     checkins: [],
     activityLog: [],
     activityStreak: { count: 0, lastDate: '', days: [] },
+    badges: {},
+    tabsSeen: [],
+    dailyChampionDays: [],
+    checkinStreak: 0,
+    greatMoodStreak: 0,
+    hydrationStreak: 0,
+    vitalsStreak: 0,
     doctorNotes: '',
     userName: '',
     nextMedId: 10, nextApptId: 10, nextContactId: 10, nextBdayId: 10,
@@ -1473,6 +1654,13 @@ function switchTab(id, btn) {
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('sec-' + id).classList.add('active');
   btn.classList.add('active');
+  // Track for Explorer badge
+  if (!state.tabsSeen) state.tabsSeen = [];
+  if (!state.tabsSeen.includes(id)) {
+    state.tabsSeen.push(id);
+    saveState();
+  }
+  evaluateBadges();
 }
 
 // ── TOAST ────────────────────────────────────────────────────────────────────
@@ -1538,6 +1726,7 @@ function toggleMed(id) {
   if (!med) return;
   med.taken = !med.taken;
   saveState();
+  evaluateBadges();
   renderMeds();
   showToast(med.taken ? `✓ ${med.name} marked as taken` : `${med.name} unmarked`);
 }
@@ -1635,6 +1824,7 @@ function logVital() {
   state.vitals.unshift({ type, value: formatted.trim(), time: new Date().toISOString() });
   if (state.vitals.length > 60) state.vitals = state.vitals.slice(0,60);
   saveState();
+  evaluateBadges();
   document.getElementById('vitalValue').value = '';
   renderVitals();
   showToast(`✓ ${vitalConfig[type].label} logged`);
@@ -1718,6 +1908,7 @@ function toggleGlass(idx) {
   const newVal = idx < state.hydration ? idx : idx + 1;
   state.hydration = newVal;
   saveState();
+  evaluateBadges();
   renderHydration();
   if (newVal >= GLASS_GOAL) showToast('🎉 Great job! Daily water goal reached!');
 }
@@ -1745,6 +1936,7 @@ function saveCheckin() {
   });
   if (state.checkins.length > 14) state.checkins = state.checkins.slice(0,14);
   saveState();
+  evaluateBadges();
   // Reset
   document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected'));
   document.querySelectorAll('.symptom-chip').forEach(b => b.classList.remove('selected'));
@@ -2180,6 +2372,152 @@ function loadTheme() {
   setTheme(saved, null);
 }
 
+// ── BADGES ───────────────────────────────────────────────────────────────────
+const ALL_BADGES = [
+  // Medications
+  { id:'med_first',    cat:'meds',     icon:'💊', name:'First Dose',       desc:'Mark your first medication as taken' },
+  { id:'med_full_day', cat:'meds',     icon:'✅', name:'Full House',        desc:'Take all your medications in one day' },
+  { id:'med_7day',     cat:'meds',     icon:'🗓️', name:'Pill Perfect',      desc:'Complete all meds for 7 days in a row' },
+  { id:'med_30day',    cat:'meds',     icon:'🏆', name:'Medication Master', desc:'Complete all meds for 30 days in a row' },
+  // Hydration
+  { id:'hyd_first',    cat:'hydration',icon:'💧', name:'First Sip',         desc:'Log your first glass of water' },
+  { id:'hyd_goal',     cat:'hydration',icon:'🥤', name:'Hydration Hero',    desc:'Hit your 8-glass goal in one day' },
+  { id:'hyd_3day',     cat:'hydration',icon:'🌊', name:'Splash Zone',       desc:'Hit your water goal 3 days in a row' },
+  { id:'hyd_7day',     cat:'hydration',icon:'🌊', name:'Water Warrior',     desc:'Hit your water goal 7 days in a row' },
+  // Activity
+  { id:'act_first',    cat:'activity', icon:'👟', name:'First Steps',       desc:'Log your first activity' },
+  { id:'act_3day',     cat:'activity', icon:'🚶', name:'On the Move',       desc:'Log an activity 3 days in a row' },
+  { id:'act_7day',     cat:'activity', icon:'🔥', name:'Mover & Shaker',   desc:'Log an activity 7 days in a row' },
+  { id:'act_social',   cat:'activity', icon:'🤝', name:'Social Butterfly',  desc:'Log a walk to visit someone' },
+  // Check-In
+  { id:'chk_first',    cat:'checkin',  icon:'😊', name:'Self-Aware',        desc:'Complete your first daily check-in' },
+  { id:'chk_great',    cat:'checkin',  icon:'😄', name:'Great Day',         desc:'Log a "Great" mood for the first time' },
+  { id:'chk_7day',     cat:'checkin',  icon:'📔', name:'Feeling Good',      desc:'Check in 7 days in a row' },
+  { id:'chk_great_7',  cat:'checkin',  icon:'🌟', name:'Great Week',        desc:'Log "Great" mood 7 days in a row' },
+  // Vitals
+  { id:'vit_first',    cat:'vitals',   icon:'❤️', name:'Health Tracker',    desc:'Log your first vital reading' },
+  { id:'vit_7day',     cat:'vitals',   icon:'📈', name:'Consistent',        desc:'Log vitals 7 days in a row' },
+  { id:'vit_all',      cat:'vitals',   icon:'🩺', name:'Full Checkup',      desc:'Log all 6 types of vitals' },
+  { id:'vit_30day',    cat:'vitals',   icon:'🏅', name:'Vitals Champion',   desc:'Log vitals every day for 30 days' },
+  // Overall
+  { id:'all_daily',    cat:'overall',  icon:'⭐', name:'Daily Champion',    desc:'Complete meds + water goal + activity in one day' },
+  { id:'all_tabs',     cat:'overall',  icon:'🗺️', name:'Explorer',          desc:'Visit every tab in the app' },
+  { id:'all_7day',     cat:'overall',  icon:'🌟', name:'All-Star',          desc:'Be a Daily Champion 7 days in a row' },
+  { id:'all_30day',    cat:'overall',  icon:'👑', name:'Engaged Elder',     desc:'Use the app actively for 30 days' },
+];
+
+const CAT_MAP = {
+  meds: 'badgesMeds', hydration: 'badgesHydration',
+  activity: 'badgesActivity', checkin: 'badgesCheckin',
+  vitals: 'badgesVitals', overall: 'badgesOverall'
+};
+
+function checkAndAwardBadge(id) {
+  if (!state.badges) state.badges = {};
+  if (state.badges[id]) return; // already earned
+  state.badges[id] = new Date().toISOString();
+  saveState();
+  const badge = ALL_BADGES.find(b => b.id === id);
+  if (badge) showBadgeToast(badge);
+  renderBadges();
+}
+
+function showBadgeToast(badge) {
+  const t = document.getElementById('badgeToast');
+  document.getElementById('badgeToastIcon').textContent = badge.icon;
+  document.getElementById('badgeToastName').textContent = badge.name;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+function evaluateBadges() {
+  if (!state.badges) state.badges = {};
+  const today = new Date().toDateString();
+
+  // ── MEDS ──
+  if (state.meds && state.meds.length > 0) {
+    const anyTaken = state.meds.some(m => m.taken);
+    if (anyTaken) checkAndAwardBadge('med_first');
+    const allTaken = state.meds.every(m => m.taken);
+    if (allTaken) checkAndAwardBadge('med_full_day');
+  }
+
+  // ── HYDRATION ──
+  if (state.hydration >= 1) checkAndAwardBadge('hyd_first');
+  if (state.hydration >= 8) checkAndAwardBadge('hyd_goal');
+  if (state.hydrationStreak >= 3) checkAndAwardBadge('hyd_3day');
+  if (state.hydrationStreak >= 7) checkAndAwardBadge('hyd_7day');
+
+  // ── ACTIVITY ──
+  if (state.activityLog && state.activityLog.length >= 1) checkAndAwardBadge('act_first');
+  if (state.activityStreak && state.activityStreak.count >= 3) checkAndAwardBadge('act_3day');
+  if (state.activityStreak && state.activityStreak.count >= 7) checkAndAwardBadge('act_7day');
+  if (state.activityLog && state.activityLog.some(a =>
+    a.text.toLowerCase().includes('visit') ||
+    a.text.toLowerCase().includes('friend') ||
+    a.text.toLowerCase().includes('neighbor')
+  )) checkAndAwardBadge('act_social');
+
+  // ── CHECK-IN ──
+  if (state.checkins && state.checkins.length >= 1) checkAndAwardBadge('chk_first');
+  if (state.checkins && state.checkins.some(c => c.mood === 'great')) checkAndAwardBadge('chk_great');
+  if (state.checkinStreak >= 7) checkAndAwardBadge('chk_7day');
+  if (state.greatMoodStreak >= 7) checkAndAwardBadge('chk_great_7');
+
+  // ── VITALS ──
+  if (state.vitals && state.vitals.length >= 1) checkAndAwardBadge('vit_first');
+  const vitalTypes = new Set((state.vitals || []).map(v => v.type));
+  if (vitalTypes.size >= 6) checkAndAwardBadge('vit_all');
+  if (state.vitalsStreak >= 7)  checkAndAwardBadge('vit_7day');
+  if (state.vitalsStreak >= 30) checkAndAwardBadge('vit_30day');
+
+  // ── OVERALL ──
+  const tabsSeen = state.tabsSeen || [];
+  const allTabs = ['meds','vitals','appointments','hydration','checkin','contacts','news','activity','badges'];
+  if (allTabs.every(t => tabsSeen.includes(t))) checkAndAwardBadge('all_tabs');
+
+  const medsDone  = state.meds && state.meds.length > 0 && state.meds.every(m => m.taken);
+  const hydDone   = state.hydration >= 8;
+  const actDone   = state.activityLog && state.activityLog.some(a => new Date(a.date).toDateString() === today);
+  if (medsDone && hydDone && actDone) {
+    checkAndAwardBadge('all_daily');
+    if (!state.dailyChampionDays) state.dailyChampionDays = [];
+    if (!state.dailyChampionDays.includes(today)) {
+      state.dailyChampionDays.push(today);
+      saveState();
+    }
+    if (state.dailyChampionDays.length >= 7)  checkAndAwardBadge('all_7day');
+    if (state.dailyChampionDays.length >= 30) checkAndAwardBadge('all_30day');
+  }
+}
+
+function renderBadges() {
+  if (!state.badges) state.badges = {};
+  const earned = ALL_BADGES.filter(b => state.badges[b.id]);
+  document.getElementById('badgeEarnedCount').textContent = earned.length;
+  document.getElementById('badgeSummaryIcons').innerHTML =
+    earned.slice(-8).map(b => `<span style="font-size:26px;">${b.icon}</span>`).join('');
+
+  Object.entries(CAT_MAP).forEach(([cat, elId]) => {
+    const el = document.getElementById(elId);
+    const catBadges = ALL_BADGES.filter(b => b.cat === cat);
+    el.innerHTML = catBadges.map(b => {
+      const isEarned = !!state.badges[b.id];
+      const earnedDate = isEarned ? new Date(state.badges[b.id]).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : null;
+      return `<div class="badge-card ${isEarned ? 'earned' : 'locked'}">
+        <span class="badge-icon">${b.icon}</span>
+        <div class="badge-name">${b.name}</div>
+        <div class="badge-desc">${b.desc}</div>
+        ${isEarned
+          ? `<div class="badge-earned-date">Earned ${earnedDate}</div>`
+          : `<div class="badge-locked-hint">Keep going to unlock!</div>`}
+      </div>`;
+    }).join('');
+  });
+}
+
+// Tab visit tracking handled inside switchTab directly
+
 // ── INIT ──────────────────────────────────────────────────────────────────────
 function init() {
   loadTheme();
@@ -2193,6 +2531,8 @@ function init() {
   renderContacts();
   renderNews();
   renderActivity();
+  evaluateBadges();
+  renderBadges();
 }
 init();
 </script>
